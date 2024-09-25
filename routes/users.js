@@ -2,25 +2,17 @@ const express = require('express')
 const router = express.Router();
 const users = require("../data/index")
 const sampleUser = require("../data/sampleUser")
+const usersController = require('../controllers/users')
 
 
-router.get('/users', ((req, res) => {
-    return res.json(users)
-}))
+router.get('/users', usersController.listUsers)
 
-router.get('/users/:id', ((req, res) => {
-    return res.json(users.find((user) => parseInt(req.params.id) === user.id))
-}))
+router.get('/users/:id', usersController.showUser)
 
-router.post('/users', ((req, res) => {
-    id = users.length + 1;
-    users.push(req.body);
-    // res.status(201).send(req.body);
-    return res.json(users)
-}));
+router.post('/users', usersController.createUser)
 
-router.put('/users/:id', (req, res) => {
+router.put('/users/:id', usersController.updateUser)
 
-})
+router.delete('/users/:id', usersController.deleteUser)
 
 module.exports = router
